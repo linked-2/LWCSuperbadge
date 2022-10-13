@@ -1,0 +1,11 @@
+printOrg uses a variety of tools to create an image of a Salesforce Org. Specifically it uses:
+
+1 - force:mdapi:describemetadata - produces a list containing all of the metadata types used in the org.
+From this list, a Map is created which is then used to produce the manifest that is used to retrieve the
+meta in subsequent steps.
+
+2 - force:data:soqlQuery - produces a list containing all of the folders residing in the org. The folder list
+is then used to pull Reports and Dashboards 
+
+3 - Subsequent to step 2, a query is used to get the contents of each of the folders. Contents are then 
+added to the manifest.

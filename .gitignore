@@ -1,0 +1,50 @@
+# General Project related
+.DS_Store
+target/
+temp/
+.husky/
+/deploy/*
+/debug/
+**/dep-dir.txt
+*.prefs
+build.properties
+*.log
+.prettierignore
+.eslintignore
+.prettierrc
+jest.config.js
+README.md
+
+# VS Code IDE Related
+.vscode/
+.history/
+
+# Illuminated Cloud Related
+.idea/
+IlluminatedCloud
+
+# SFDX Related
+.sfdx/
+.sf/
+sfdx-source/untracked/*
+!sfdx-source/untracked/README.md
+.forceignore
+force-app/main/default
+default
+
+# SFDX SFDMU Plugin Related
+/data/**/logs/
+/data/**/source/
+/data/**/target/
+/data/**/binary_cache/
+
+# NPM Related
+package.json
+/node_modules
+package-lock.json
+
+# Excel temp files
+**/~$*.xlsx
+
+# MS WORD temp files
+**/~$*.docx
