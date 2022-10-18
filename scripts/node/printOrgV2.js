@@ -32,7 +32,9 @@ sfdx.force.mdapi.describemetadata({
             }else{
                 let tempArray = typeMap.get(key);
                 tempArray.forEach((x)=>{
-                    console.log('doing this');
+                    if(x    != 'ManagedContentTypeBundle'){
+                        manifestOut = manifestOut + '    <members>' + typeMap.get(key)[x] + '</members>';
+                    }
                 })
             }   
 
@@ -50,16 +52,3 @@ sfdx.force.mdapi.describemetadata({
         }
     }
 )
-
-
-             // manifestOut = manifestOut + typeEnd
-            // manifestOut = manifestOut + typeEnd + '\n    <version>55.0</version> \n</Package>'
-            // let tempArray = typeMap.get(key);
-            // typeMap.get(key).forEach((x)=>{
-            //     manifestOut = manifestOut + '    <members>' + typeMap.get(key)[x] + '</members>';
-            // }   
-            //manifestOut = manifestOut + nameEnd1 + key + nameEnd2;
-
-
-            // ``          typeMap.get(key).forEach((x)=>{
-            //     manifestOut = manifestOut + '    <members>' + typeMap.get(key)[x] + '</members>';

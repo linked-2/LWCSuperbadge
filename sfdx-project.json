@@ -1,11 +1,11 @@
 {
   "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
-    }
+      { "path": "force-app", "default": true}
   ],
+  "package": "LWCSuperbadge",
   "name": "LWCSuperbadge",
+  "versionName":"1.0.0",
+  "versionNumber": "1.0.0.NEXT",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "55.0"
