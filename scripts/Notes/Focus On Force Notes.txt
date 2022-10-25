@@ -1,0 +1,54 @@
+Variables are used to store data in JavaScript, such as numbers and text values. 
+The name of a variable is called an identifier, and it must conform to certain 
+naming rules. A variable can be declared using the var, let or const keyword. 
+Global variables exist outside any function while local variables are defined 
+inside a particular function. Variable hoisting allows accessing a variable 
+before it is declared in code, but a hoisted variable returns the value of 
+undefined. Strict mode can be used to avoid using variables that have no declaration.
+
+Eight data types are supported in JavaScript for storing data. 
+These are 
+Boolean, Number, String, BigInt, Symbol, Object, null, and undefined. 
+
+When initializing objects and arrays, certain considerations should be kept in mind. 
+For example, the content of an object or array that is declared using the const keyword can be modified.
+
+A variable can be declared using the Const, let or var keywords.
+
+A Global variable is one that is declared outside of any function. 
+
+It is possible to use a variable that is declared using 'var' later in the script because of hoisting. but
+the value of the variable will be 'undefined'. Unlike other variable types, Objects and ARrays decclared using the 
+'const' keyword can be modified. This means that if you declare say a number using const - you cant modify it 
+later in the script yet arrays and objects cccan be modified - this makes sense becase array and object are not 
+primitive data types.
+
+The name of a variable is called an 'identifier'. Identifiers must begin with a '$', '_' or a letter.
+
+The three types of declaration are:
+var -  used for a block scoped OR global variable. Can be initialized
+let - block scoped local variable. Can be initialized
+const - block scoped read only constant. MUST be initialized.
+
+'null' and 'undefined' are interchangeable because if(null==undefined) evaluates to true.
+When you declare a block scoped variable that has the same name as a global variable, the action
+doesnt change the value of the global variable, because the scope of the block variable is inside 
+the function.
+
+"use strict" causes the script to throw an error if a an undeclared variable has been thrown.
+
+Variable Types:
+There are eight variable types: Boolean, String, Number, Null, Undefined, Symbol, Array and Object
+
+Kinda weird but String Boolean and Number can be declare in an Object wrapper class. example:
+let aNumber = 5;
+can also be exressed as 
+let aNumber = new Number(5);
+
+The typeof keyword returns the type of a value. The instanceofkeyword returns true if a value is an 
+instance of an object.
+console.log(typeof amount); // "number"console.log(amount2 instanceof Number); // trueThe typeof keyword returns the type of a value. 
+    The instanceof keyword returns true if a value is an instance of an object.
+
+A variable has a value of undefined if it has not been assigned a value. However, a variable must 
+be assigned a null value
