@@ -1,3 +1,4 @@
+1 - 1
 Variables are used to store data in JavaScript, such as numbers and text values. 
 The name of a variable is called an identifier, and it must conform to certain 
 naming rules. A variable can be declared using the var, let or const keyword. 
@@ -5,6 +6,8 @@ Global variables exist outside any function while local variables are defined
 inside a particular function. Variable hoisting allows accessing a variable 
 before it is declared in code, but a hoisted variable returns the value of 
 undefined. Strict mode can be used to avoid using variables that have no declaration.
+
+Two kinds of variables: Global and Local
 
 Eight data types are supported in JavaScript for storing data. 
 These are 
@@ -14,6 +17,13 @@ When initializing objects and arrays, certain considerations should be kept in m
 For example, the content of an object or array that is declared using the const keyword can be modified.
 
 A variable can be declared using the Const, let or var keywords.
+Three ways that variables can be declared: 
+    'let', 'const', 'var'
+    let and const are block scoped - meaning that they are only visible inside the block where they are locted.
+    var gets hoisted so it is visible outside of the block where is declared.
+
+    If you declare using var or let and do not initialize a value -JS will initialize it as 'undefined'
+    When you declare a const - you have to initialize the value otherwise an error will be thrown.
 
 A Global variable is one that is declared outside of any function. 
 
@@ -22,6 +32,7 @@ the value of the variable will be 'undefined'. Unlike other variable types, Obje
 'const' keyword can be modified. This means that if you declare say a number using const - you cant modify it 
 later in the script yet arrays and objects cccan be modified - this makes sense becase array and object are not 
 primitive data types.
+Variables declared with 'var' are hosted
 
 The name of a variable is called an 'identifier'. Identifiers must begin with a '$', '_' or a letter.
 
@@ -29,6 +40,16 @@ The three types of declaration are:
 var -  used for a block scoped OR global variable. Can be initialized
 let - block scoped local variable. Can be initialized
 const - block scoped read only constant. MUST be initialized.
+
+The two ways to declare an object are with the object Constructor
+const anObject = new Object();
+
+or object literal meaning
+var animal = {
+    type: 'dog';
+    sound: function(){console.log('woof');}
+}
+
 
 'null' and 'undefined' are interchangeable because if(null==undefined) evaluates to true.
 When you declare a block scoped variable that has the same name as a global variable, the action
@@ -45,6 +66,10 @@ let aNumber = 5;
 can also be exressed as 
 let aNumber = new Number(5);
 
+Remember: Let and Const are both Block scoped meaning that they dont exist outside of the scope as defined by curly braces.
+
+1 - 2
+
 The typeof keyword returns the type of a value. The instanceofkeyword returns true if a value is an 
 instance of an object.
 console.log(typeof amount); // "number"console.log(amount2 instanceof Number); // trueThe typeof keyword returns the type of a value. 
@@ -52,3 +77,487 @@ console.log(typeof amount); // "number"console.log(amount2 instanceof Number); /
 
 A variable has a value of undefined if it has not been assigned a value. However, a variable must 
 be assigned a null value
+Not quite sure how a symbol would be used
+
+*** using number date and string constructors ***
+He uses two descriptive phrases: literal and constructorsLeter would be where you say:
+letaString = 'something';
+a Constructor would be where he says
+const letaString = new String();
+its possible to declare a constructor AND later set the value without using a method. Like 
+shown above AND then saying letaString = 'something';
+
+template string is `this is the ${var}th time`
+    it uses the forward tick and contains a variable that is indicated by ${varname}
+This works
+Here are some common string methods:
+toUpperCase(), toLowerCase() - these are helpful when you want to compare one string to another
+concat(str1, [string2, 3 etc]) - you can also use the operator '+' and the + is called the concat operator.
+includes(<searchstring>[, position])
+indexOf(<searchstring> [, from Index])
+replace(<searchstring>, <replacing string>)
+substring(indexStart [, indexEnd])
+search() - exactly what it says
+padStart() & padEnd() - used to make a string be a certain length
+trim() - used to remove blank characters or whitespace - not used to shorten the length 
+    of a string
+The escape character - ie '\' will cause a string to inssert a new line. It's the same as '\n'
+There is also something called a template literal. It uses the backtick - `
+    It uses the `${variableName}` for the expression
+    *** common methods for numbers ***
+isNaN() its a static method that can be used to determine whether a value is a NaN (not a number) - 
+    meaning that it is something other than a number - one of the other 7 variable types
+    difference between global isNAN
+
+1 - 3
+ ** Type coersion **
+This is complex - needs review
+
+Type Coersion with different operators
+
+Loose equality operator (== or !=)
+    The loose equality operator is used to determine if two operands are equal or not. It coerces  primitives to numbers
+
+Comparision operators (>=, >, <=)
+    A comparison operator is used to determin if one value is greater than, less than or equal to the other value. It coerces primitives to numbers.
+
+Logical operators OR(||), AND(&&), and NOT(!) are logical operators used to determine if an expression evaluates to true or false. They coerce 
+    primitives to boolean.
+
+Arithmetic operators
+    Arithmetic operators (-, + and *) are used to add, subtract, multiply and divide numbers. They coerce primitives to numbers except when +
+     is used. If one operator is a string the result is a string.
+
+Unary operators
+    The unary plus operator (+) is used on a single operand and converts a non-numeric value to a number.
+    Similarly, the unary minus operator(-), converts but negates the result. They coerce primitives to numbers.
+
+Bitwise operators   
+    Bitwise operators(\,&,^ and ~) are used to treat operands as a set of 32 bit binary digits and operate on the individual bits. 
+    The coerce primitives to numbers.
+
+A boolean, string or number can also result from a coercion for the non-prmiitive object data tyoe.
+The string and number coercion uses functions to determine the primitive data type of an object.
+
+Explicit coersion
+
+
+*** functions ***
+function expression:
+    Const aFunction = function(){}
+        you can see that it is declared as a variable and then defined as a function. This is call a function literal
+*** function declaration ***    
+    sounds weird because a function expression is where the function is assigned to a declared variable
+    but a function declaration is where the function is DECLARED asa function - it can then be be called. 
+    Declared functions are hoisted and can be invoked above before the function is definedThat isnt true for a function expression. Function expressions are not hooisted
+
+    apply, call, bind
+    Apply and call are similar
+        his example was 
+            objGreet.morningGreet.call(user1, '!');
+                the variable is passed in as a primitive
+            objGreet.eveninngGreet.apply(user2, ['?]);
+                the variable is passed in as an array
+
+*** truthy and falsy **
+There are eight values that evaluate to false:
+false, 0, -0, 0n, '',  null, undefined and NaN
+
+Interesting that [1] === [1] would evaluate as false because they are different objects
+They have the same properties but they are different objects
+ots of methods for Date 
+
+***Array elements **
+a list like object that is used to store elementslength() gives the length of the array
+Like other data types there are two ways to instantiate: literal and constructor
+AN ARRAY is a special type of object.
+iterate over the elements of an array:
+    for loop
+        like every other for loop
+        for(let i = 0; i < array.length: i++){
+            do these things
+        }
+        also...
+        for(let index in arrayName){
+            console.log(arrayName[index])
+        }
+        also...
+        for( let arrayElement of arrayName){
+            console.log(arrayElement)
+        }
+        and my favorite the forEach... prints the value of each elements    
+        the varName can be any valid js variable name
+        arrayName.forEach((varName)=>{
+            console.log(varName)
+        })
+
+add array elements
+    arrayName.push()
+        adds one or more elements to the end of the array
+    arrayName.unshift()
+        adds one or more elements to the front of the array
+    arrayName.splice()
+        adds or replace elements in the interior of the array
+            This one is interesting because the expression of the statement can change the behavior
+            if you say  
+                arrayName.splice(1,0, 'a value') it will add the value at index 1 and push all the
+                other elements back in the list
+            if you say  
+                arrayName.splice(1,1,'a value') it will REPLACE the value value at position 1
+                effectively removing it from the array
+Remove elements from the array
+
+
+*** generators and iterators ***
+it gives us values in a one at a time fashion and can be used with the .next syntax
+
+    a generator is denoted by 
+        function* functionName(){
+            things to do
+        }
+    iteratorsdont know the difference between the generator and iterator
+*** *** closure ***
+closure allows code to access its parents scope aven after that code has finished running
+
+*** Objects Functions and Classes I ***
+    There are two ways to set up a class:
+    a Class declaration AND a Class extension
+    Here is a class definition:
+        class ClassName{
+            constructor(){
+                // this is optional but can assign values to properties of the class
+            }
+            method1(){ }
+            method2(){ }
+            method3(){ }
+        }
+    a class 'expression' looks like this. Note that the name of the class is 
+        optional when you are using a class expression:
+        let ClassName = class optionalClassName{
+            contstructor(){ }
+            method1(){ }
+            method2(){ }
+            method3(){ }
+        }
+    
+    an instance of a class which is another term for an object
+
+    getter and setter are methods called when we set a value of a property and they are invoked differently
+    using the get and set keywords
+    set propertyName(val){
+        this.meaninglessname = val;
+    }
+    get propertyName(){
+        return this.meaninglessname;
+    }
+    a Static method is a method that belongs to the class but not to an instance of the class
+        the method would be defined like   
+            static isUser(obj){
+                return obj instance of User
+            }
+
+    He uses the term 'subclass' to describe a class that is an extension of another class
+
+    The 'super' keyword:
+        if the child class has a constructor (that is optional), you have to include the 
+        super(var1, ... how ever many vars the prarent class asks for)
+        that has to be uincluded in the constructor of the child class
+
+*** Objects Functions and Classes II ** 
+
+    Javascript modules
+    A module is a file containing code with its own top-level scope. JS modules all code to be structured 
+    into different files that can include variables funstions and/orclasses that are logically related, 
+    allowing for modular code development.
+
+    In order to access features in a modeul from another modeul, they must be explicitly exported.
+    Exports are of two types they are Named exports and default exports but a module supports only 
+    one default export.
+
+    The module that needs to access exported features from another module must import them using 
+    the import directive. Once imported , the module features are read-only but retain a live binding 
+    to the module, meaning they are updated if the value changes in the source module that exported them.
+
+    Both imports and exports can be renamed.
+
+    You can only do one export default per module.
+
+    *** Browser and events ***
+        An event is a specific action or ovvurrence on a web page that is sent to notify code, 
+        allowing it to respond in a desired manner. There are various types of events such as mounse events
+        and resource events.
+        
+        Event handlers are functions that are used to handle events. There are two approaches that are generally 
+        used for handling events. An event listener can be attached to an element to hand a particular event 
+        using the addEventListener() method. It allows attaching muliple event handlers to an element. An onevent handler 
+        such as onCLick can also be used to assign a single event handler to a particular element.
+        
+        Event proagation in modern browsers consusts of two phases, namely, bubbling and capturing. By default if a 
+        target element and at least one ancestor have an event handler for the samevent, the execution of the event
+        handlers bubbles up from the target element to the outermost element. However capture phase may also be used to 
+        handle the event from the outermost element to the target element.
+
+        addEventListener is the most common approach
+        This is where the js has an eventListener to a dom id. The benefit is that you can add more than a single handler 
+        for a particular event. It also allows controlling phase (bubbling or capturing) when the listener is acitvated.
+
+        DOM event properties
+
+        Programmatic trigger
+        Event Capturing  
+        Event Bubbling
+        stop Propagation()
+        preventDefault() - he showed the code
+
+*** Browser and Events II *** 
+    Six fundamental DOM data types
+        Document, 
+        Node
+        elementNodeList
+        Attribute
+        NamedNodeMap
+    Methods available for retrieveing elements from the DOM
+        getElementById()
+        querySelector()
+        querySelectorAll()
+        Dom manipulation
+            AappendChild()
+            SetAttribute()
+            innerHTML and style
+        the window object represents the window object  
+            location
+        querySelector
+        querySelectorAll - this returns a node list
+        appenChild - used to append a child at the end of the element
+
+** Use browser dev tools to debug ***
+    Chrome Dev Tools is a set of tools in Chrome that can be used to investigate code behavior and debug 
+    JS code. It has various panels that can be used for debugging.
+
+    The Elements panel is used to inspect and and modify the DOM and CSS. The console panel is used to execute
+    JS code and view logged messages. The sources pabel consist of the partsL File navigator panel, code edito 
+    panel and JS debugging panel. The scope pane in the JS  debugging pane can be used to check the values of 
+    variables. The watch pane can be used to monitor the values over time.
+
+    The network panel can be used to check the networkk activity of a web page. It also allows inspecting whether 
+    resources are actually being downloaded or uploaded. It can also be used to inspec the properties of each 
+    resource. The network log shows the network activity associated with each resource.
+
+** Browser and Events ***
+    Dom API - can be used to maipulate the structure, style or content of a web page
+        things like innerHTML, append
+
+    Fetch API - allows you to make requests to a server such as to get  or create data
+        notice that he doesnt use .then. he says:
+        const request = async ()=>{
+            const url           = 'aURL';
+            const response      = await fetch(url, {method: 'GET'});
+            const data          = await response.json();
+        }
+
+    History API - allows you to navigate and manipulate the browser History
+        He does an example of getting a location and displaying it in the browser
+    Geolocation API - you can get location data from the users device
+    Canvas API - draw 2D graphics on a web page
+        <canvas></canvas> 
+    URL API - access and modify the properties of a URLWeb Storage API - store items in session and local storage
+        urlURLSearchParams
+    
+    Web Storage
+        localStorage etc
+
+** Debugging and error handling ***
+
+    Proper error is an important aspect of any project. JS errors, also called exceptions, are of eight different types. 
+    Exceptions are thrown by the JS engine whenever there is a problem. This can cause the application to fail and 
+    requires proper handling.
+    The try... catch statement is used to handle exceptions in a way that prevents the application from failing. The 
+    The finaly block provides a mechanism for clean-up int the event of an exveption. The console API provides multiple 
+    methods for communicating exveptions to the end user in the console.
+    An exception generates an error object. The error object has properties that provide information about the exception. 
+    Developers can create custom exceptions using the throw keyword.
+
+    The 8 types of errors:
+        1 - Error - represents a runtime error. Can also be used to create a custom error
+        2 - Reference Error - represents an invalid reference such as an undeclared variable
+        3 - Syntax Error - represents an error caused by incorrect syntax in the code
+        4 - Type Error - Represents and error caused by a parameter or variable of an invalid type
+        5 - Eval Error - occurs when we are using the eval function
+        6 - Internal error - represents and internal error in the JS
+        7 - Range error - represents an error when a numeric variable is outside it's valid Range
+        8 - URI error represents an error when encoding or decoding an invalid URI
+
+    Using methods of the console API
+        console.log()
+        console.error()
+        console.info()
+    
+    User defined errors
+        Done using the throw statement
+        if(elem === '') throw 'This is the error that you can throw'
+
+    But what about the error object
+        it has propertiesName, message
+
+*** Asynchronous Programming ***
+    Callbacks - promises and callback functions
+        Asynchronous programming allows executing code seperately from the main application code 
+        without blocking it. It is used when the response of an operation is not immediately
+        available. Asynchronous code is written using asynchronous callbacks or promises. An asynchronous 
+        callback is a function that is passed as an arument to another function that is executed in the 
+        'background'. It is exectuted when the code finishes execution.
+    Promise - A promise is an object that is returned by asynchronous code and represents the completion or
+        failure of the ascynchronous operation. It is either resolved or rejected. a .then90 block can be 
+        used to handle a promise when it is rejected. Multiple .then() blocks can be used when multiple 
+        asynchronous operations need to be executed. The async/await syntax can be used to make it easier 
+        to work with promises. It requires the use of the asynch and await keywords. The async keyword is 
+        added to the front of a function that should contain asynchronous code. The await keyword is added 
+        to the front of an asynchronous function call that returns a promise.
+
+    Promises have a state. Pending, filled or rejected are the statuses
+
+    Multiple promises in .then clauses is called promise chaining. This convention is adopted because its easier 
+    to read than callback hell.
+
+    Promise methods 
+        Promise.all - a static method that accepts an array of promises and returns a new promis. It is resolved 
+        when the specified promises are resolved
+
+        Promise.allSettled - a static method accepts an array of promises and returns the status and value/error 
+        for each promise
+        
+        Promise.race - This static method accepts an array of promises and treturns the first settled promise
+
+        Promise.any - This static method accepts and array of promises. When one of the promises is fulfilled it 
+        returns a single Promise
+
+        Promise.resolve - Static method that returns a new Promise object that  resolves with the specified value
+
+        Promise.reject - This static method returns a new Promise object that is rejected with the specified error
+
+    Async/await
+        Async - the async keyword needs to be added in front of a function declaration to turn the function
+        into an async function that expect asynchronuous code
+
+        Await - the await keyword can be added in fron of any asynchronous promise based function inside an 
+        async function. It can only be used inside asycnc functions.
+
+        Error handling - Asynchronous try... catch statement can be used with async/await to add error handling.
+        the error object is passed to the catch block
+
+        It would be interesting to use https:swapi.dev/api
+
+    event loop
+
+        JS is a single threaded programming language and capable of performing only one task at a time. The runtime engine 
+        does not wait for asynchronous function to complete (i.e. XHR request, DOM event, SetTimeout) and moves on to 
+        process the next function in the call stack.
+
+        When an asynchronous function completes and a callback is provided, the callback method is placed in the message 
+        queue. if the event loop see that the call stack is empty and a message is queued it pushes the oldest message 
+        into the call stack for processing, and waits for the call stack to be empty again before fetching the next message.
+
+        Events for a specific object can be moitored by executing the monitorEvents methof in the command line of the console 
+        panel. When an even is invoked on the object, the Event object is logged in the console where its properties can be inspected.
+
+        Stack sometimes called Stack Heap
+            The call stack contains functions that are being processed in which each function is stacked as a frame. After 
+            being processed, the function is popped out the call stack.
+
+        Heap
+            Objects that are created during runtime are allocated in a heap which is a term used to describe a large region 
+            of memory in the running machine
+
+        Queue - or message queue
+            The message queue or also known as the callback or event queue is where an asynchronous callback waits to be 
+            pushed by the event loop into the call stack for processing.  
+
+        
+*** Server Side JS ***
+
+    Node .js is a back-end JavaScript runtime environment that can be used to execute JS code outside a browser. A single 
+    non- blocking process is utilized to run a Node.js app. Node.js can be used to generate dynamic Web page content, 
+    build real-time or single page apps and also develop APIs and microservices.
+
+    After installing Node.js, a wenserver can be built using the http module. It is alos possible use to it to perform 
+    outbound HTTP requests such as GET and POST. The 'fs' module allows working with the server
+    s file system. The 'events' module can be used to emit and handle events in NOde.js. Node packageer (NPM) can be 
+    used to install open-source packages that are available in the npm registry. They can be used for specific requirements 
+    that cannot be met by using the core Node.js modules.
+
+    Node using the V8 engine
+    Node is not multi threaded 
+    Node supports ECMA script
+    NPM - Node package Manager
+
+    Can handle multiple IO Requests simultaneously
+    Often used to develope RESTful APIs
+
+Server side JS II
+    Make use of modules in Node
+
+    When creating a Node application, a developer can make use three types of modules:
+        -Core module - defined and built in to the nodee.js source - dont need to be installed
+        -Local module - Created locally by the developer in the application Such as helper.js that contains various utility functions
+        -Third Party module - have to be installed using the 'npm install <package>' command
+
+        all of these types require the require() function to be included and available for use
+
+    Two ways to use an exported module or function
+        -default
+        -named
+Server side JS IV
+    Node Package Manager
+        Three components of NPM
+            Web site
+                npmjs.com - where packages are listed
+            NPM CLI
+            Registry
+                Package.json used to list the dependencies and devDependencies of the package. The nameand version
+                version fields are required in the file. When publishing a new package, the version number should 
+                be updated in the file based on the semantic versioning spec.
+
+                Information 
+                    The package.json file contains informatin such as Name, decription, version etc. It also 
+                    lists the package dependencies, including develoipment dependencies
+                Installation
+                    the package.json file makes it easier for other to manage and install the package.
+                    The NPM install command allows installing the dependencies
+                Modules Not all modules are packages.A module is either a JS file or a folder with a package.json 
+                    file containg a main field
+                Semantic versioning 
+                    New Product - the package versions should start at 1.0.0 for the first release of a package. 
+                    It should then be incremented based on the type of release
+                    Patch release   
+                        In the case of a patch release which has backward compatible bug fixes, the third digit 
+                        of the version should be increamented - 1.0.1
+                    Minor release - In case of a minor release which has backward compatible new features, the 
+                        middle digit should be incrememnted and last digit should be set to zero 1.1.0
+                    Major release   
+                        In case of a major release, which breaks backward compatibility the first digit should be 
+                        incremented and middle and last digits should be set to zero
+
+Testing
+    In order to determine the context and objective of a test it is inportant to be familiat with the type of 
+    test being used and the test approach being implemented sych as black-box testing or white box testing.
+
+    In this topic various concepts and methods related to JS testing are discussed. The provide knolwedge about 
+    creating unit tests to validate functional units in an application such as synchronous/asynchronous functions 
+    and DOM manipulation.
+
+    A developer should be able to undestand what false positive and false negatives are and take steps to 
+    prevent these situations in a test. One should be able to identify inneddective test code and improve 
+    it to build a robust application.
+
+    There are three types of environments where JS tests can be executed    
+        Browser - to test ina browser and HTML pahe needs to be created. It should the linraties required to run 
+            the test and the test files that contain JS code and loaded in a browser
+        Headless browser
+            A headless browser allows runningtests without the need of a browser, or user interface. Test scripts 
+            can be executed very quickly from the command line.  
+        Node.js
+            required libraries & test scripts are inpoerted in Node.js and a third party library may be used to 
+            simulate a browser inthe tests will be run.
+
+
+

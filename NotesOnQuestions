@@ -1,0 +1,81 @@
+Strict mode:
+    If strict mode is enabled, variables are required to be declared first before that can use or assigned a value
+    otherwise and error will be thrown.
+
+reduce method of an array:
+    the Reduce method of an array can be used to reduce an array into a signle output valuye. To meet the requirements in the question
+    it can be used to calculate the price of all items. The method accpets a callback and an option initial value as its parameters.
+    The callback function is executed on each element in the original array. 
+
+flat method of array
+    the array.flat method is used to create a flattened array consisting of concatenated sub-array elements in the depth specifed.
+    Specifying 0 depth would do nothing but 'Infinity' will cause the entire array to be flattened.
+filter method of array
+    The filter method of an ARray can be used to create a new array that passes the given condition. So it loops through the array and applies a condition. That can then be passwed to a map method (as an example) that will also have a callback to create the new array.
+
+
+JSON.stringify()
+    A JS object has properties and methods associated with it. A JSON is simply a string. When you use JSON.Stringify, you are
+    converting a JS object to a string. THat is what you do for instance if you want to print the values of an object to the console.
+
+Boolean cannot be coerced to a number.
+    If you have a boolean - say 
+    let g = true;
+    And you attempt to explicitely coerce it to a number using
+    let h = Number(g);
+    the value of h will be NaN because a boolean cant be coerced to a number. A boolean doesnt really have a truthy or falsy value - it already is.
+
+Date methods
+    the 'parse()' static method takes a date string entered in the ISO 8601 extended format (eg 2022-11-16) and converts that date
+    to the number of milliseconds since January 1, 1970 00:00:00 UTC.
+    Date.now will give you that number of milliseconds.
+
+How does the call stack work?
+
+    Call stack
+    A call stack is a mechanism for an interpreter (like the JavaScript interpreter in a web browser) to keep track of its place in a script that calls multiple functions — what function is currently being run and what functions are called from within that function, etc.
+
+    When a script calls a function, the interpreter adds it to the call stack and then starts carrying out the function.
+    Any functions that are called by that function are added to the call stack further up, and run where their calls are reached.
+    When the current function is finished, the interpreter takes it off the stack and resumes execution where it left off in the last code listing.
+    If the stack takes up more space than it was assigned, a "stack overflow" error is thrown.
+
+Number methods:
+    number.isInteger - returns true if Number is an integer
+
+Object methods
+    object.assign   
+        Object.assign(target, ...sources)
+            Properties in the target object are overwritten by properties in the sources if they have the same key. Later sources' properties overwrite earlier ones.
+    object.hasOwnProperty()
+            The hasOwnProperty() method returns true if the specified property is a direct property of the object — even if the value is null or undefined. The method returns false if the property is inherited, or has not been declared at all. Unlike the in operator, this method does not check for the specified property in the object's prototype chain.
+
+            example.prop = 'exists';
+
+            // `hasOwnProperty` will only return true for direct properties:
+            example.hasOwnProperty('prop');             // returns true
+            example.hasOwnProperty('toString');         // returns false
+            example.hasOwnProperty('hasOwnProperty');   // returns false
+
+            // The `in` operator will return true for direct or inherited properties:
+            'prop' in example;                          // returns true
+            'toString' in example;                      // returns true
+            'hasOwnProperty' in example;                // returns true
+
+Iterating over the properties of an object
+        The following example shows how to iterate over the enumerable properties of an object without executing on inherited properties.
+
+            const buz = {
+            fog: 'stack',
+            };
+
+            for (const name in buz) {
+            if (buz.hasOwnProperty(name)) {
+                console.log(`this is fog (${name}) for sure. Value: ${buz[name]}`);
+            } else {
+                console.log(name); // toString or something else
+            }
+            }
+
+iterator and generator
+    
