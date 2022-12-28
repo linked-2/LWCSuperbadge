@@ -15,8 +15,10 @@ let typeStart = '\n  <types>';
 let typeEnd = '\n  </types>';
 let nameStart = '\n    <name>'
 let nameEnd = '</name>'
+let memberStart = '\n    <Members>';
+let memberEnd = '</Members>';
 let everything = '\n    <members>*</members>'
-let manifestEnd = '\n    <version>53.0</version>\n</Package>'
+let manifestEnd = '\n  <version>53.0</version>\n</Package>'
 
 function getDescribeMetadata(){
     sfdx.force.mdapi.describemetadata({
@@ -54,18 +56,50 @@ function getDescribeMetadata(){
                     }
                 }
             )
+            typeMap.set('Report', reportList);
+            typeMap.set('Dashboard', dashboardList);
 
     }).then(()=>{
-        let h = reportList[2];
-        console.log('this is h ' + h)
-        sfdx.force.mdapi.listmetadata({
-            metadatatype: 'Report',
-            folder: h, 
-            _quiet: false
-        }).then((data)=>{
-            console.log(data)
-        })
+        //reportList loop here
+        for (const [key] of typeMap) {
+            let nodeElement = '';
+            nodeElement = typeStart + nameStart + key + nameEnd;
+            // missing the node code here
+            // each element of the array has to go through
+            //         sfdx.force.mdapi.listmetadata({
+            //             metadatatype: x.Type,
+            //             folder: x.DeveloperName, 
+            //             _quiet: false
+            // where type is the key and developer name are the elements of the array
+            if(typeMap.get(key).length > 0){
+                typeMap.get(key).forEach((f)=>{
+                    nodeElement = nodeElement + nameStart + f + nameEnd;
+            })
+            manifestOut = manifestOut + nodeElement + typeEnd;
+            }
+        }
 
+
+    }).then(()=>{
+        nodeElement = typeStart + '<Members>\n'  + '*' + '</Members>\n';
+        sfdx.force.schema.sobjectList({
+            sobjecttypecategory: 'standard', 
+            quiet: false
+        }).then((data)=>{
+            let nodeElement = '';
+            nodeElement = typeStart + everything ;
+            data.forEach((x)=>{
+                nodeElement = nodeElement + memberStart + x + memberEnd;
+            })
+            manifestOut = manifestOut + nodeElement + nameStart + 'CustomObject' + nameEnd + typeEnd + manifestEnd;
+            fs.writeFile('sampleManifest.xml', manifestOut, (err)=>{
+                if(err!= null){
+                    console.log(err);
+                }
+            })
+            console.log('Finished!');
+
+        })
 
     })
         
