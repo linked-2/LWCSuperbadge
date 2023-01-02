@@ -19,7 +19,7 @@ let memberStart = '\n    <Members>';
 let memberEnd = '</Members>';
 let everything = '\n    <members>*</members>'
 let manifestEnd = '\n  <version>53.0</version>\n</Package>'
-
+async function getFolderMembers(){}
 function getDescribeMetadata(){
     sfdx.force.mdapi.describemetadata({
             targetusername: 'lwcsuperbadge'
@@ -60,26 +60,37 @@ function getDescribeMetadata(){
             typeMap.set('Dashboard', dashboardList);
 
     }).then(()=>{
-        //reportList loop here
         for (const [key] of typeMap) {
-            let nodeElement = '';
-            nodeElement = typeStart + nameStart + key + nameEnd;
-            // missing the node code here
-            // each element of the array has to go through
-            //         sfdx.force.mdapi.listmetadata({
-            //             metadatatype: x.Type,
-            //             folder: x.DeveloperName, 
-            //             _quiet: false
-            // where type is the key and developer name are the elements of the array
             if(typeMap.get(key).length > 0){
-                typeMap.get(key).forEach((f)=>{
-                    nodeElement = nodeElement + nameStart + f + nameEnd;
-            })
-            manifestOut = manifestOut + nodeElement + typeEnd;
+            console.log('The key is ==> ' + key);
+            console.log('typeMap.get(key).length ==> ' + typeMap.get(key).length);
+            let nodeElement = '';
+            nodeElement = typeStart;
+            for (let i = 0; i < typeMap.get(key).length; i++){
+                console.log(' typeMap.get(key)[i] ==> ' +  typeMap.get(key)[i]);
+                nodeElement = nodeElement + memberStart + typeMap.get(key)[i] + '/' + memberEnd;
+                sfdx.force.mdapi.listmetadata({
+                    metadatatype: key,
+                    folder: typeMap.get(key)[i], 
+                    _quiet: false
+                }).then((data)=>{
+                    console.log('running then');
+                    if(data.length > 0){
+                        console.log(JSON.stringify(data));
+                        data.forEach((f)=>{
+                            console.log('f.fullName ==> ' + f.fullName);
+                            let aString = memberStart + f.fullName + memberEnd;
+                            console.log('aString ==> ' + aString);
+                            nodeElement = nodeElement + aString;
+                            console.log('inside nodeElement ==> ' + nodeElement);
+                        })
+                        nodeElement = nodeElement + nameStart + key + nameEnd + typeEnd;
+                        manifestOut = manifestOut + nodeElement;
+                    }
+                })
+            }
             }
         }
-
-
     }).then(()=>{
         nodeElement = typeStart + '<Members>\n'  + '*' + '</Members>\n';
         sfdx.force.schema.sobjectList({
@@ -98,17 +109,12 @@ function getDescribeMetadata(){
                 }
             })
             console.log('Finished!');
-
         })
-
     })
-        
-        
-
-
-
     })
-    } // end of function
+} // end of function
+
+getDescribeMetadata();
 
     // then(()=>{
 
@@ -121,7 +127,6 @@ function getDescribeMetadata(){
     //     console.log('ending');
     // })
 
-getDescribeMetadata();
 
 
 
@@ -203,5 +208,3 @@ getDescribeMetadata();
         //             // }
         //     })
         // )
-
-// sfdx force:schema:sobject:list -c standard
