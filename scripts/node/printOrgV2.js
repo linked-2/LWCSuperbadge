@@ -27,7 +27,9 @@ function getDescribeMetadata(){
     .then((data)=>{
         data.metadataObjects.forEach(element => {
             let  elementNode = '';
-            if(element.xmlName != 'Report' && element.xmlName != 'Dashboard' && element.xmlName != 'CustomObject'){
+            if(element.xmlName != 'Report' && element.xmlName != 'Dashboard' && element.xmlName != 'CustomObject'
+            && element.xmlName != 'EventRelayConfig' && element.xmlName != 'DigitalExperienceBundle' && element.xmlName != 'ExternalCredential'
+                ){
                 elementNode = typeStart +
                     everything +
                     nameStart + element.xmlName + nameEnd +
@@ -62,33 +64,24 @@ function getDescribeMetadata(){
     }).then(()=>{
         for (const [key] of typeMap) {
             if(typeMap.get(key).length > 0){
-            console.log('The key is ==> ' + key);
-            console.log('typeMap.get(key).length ==> ' + typeMap.get(key).length);
-            let nodeElement = '';
-            nodeElement = typeStart;
-            for (let i = 0; i < typeMap.get(key).length; i++){
-                console.log(' typeMap.get(key)[i] ==> ' +  typeMap.get(key)[i]);
-                nodeElement = nodeElement + memberStart + typeMap.get(key)[i] + '/' + memberEnd;
-                sfdx.force.mdapi.listmetadata({
-                    metadatatype: key,
-                    folder: typeMap.get(key)[i], 
-                    _quiet: false
-                }).then((data)=>{
-                    console.log('running then');
-                    if(data.length > 0){
-                        console.log(JSON.stringify(data));
-                        data.forEach((f)=>{
-                            console.log('f.fullName ==> ' + f.fullName);
-                            let aString = memberStart + f.fullName + memberEnd;
-                            console.log('aString ==> ' + aString);
-                            nodeElement = nodeElement + aString;
-                            console.log('inside nodeElement ==> ' + nodeElement);
-                        })
-                        nodeElement = nodeElement + nameStart + key + nameEnd + typeEnd;
-                        manifestOut = manifestOut + nodeElement;
-                    }
-                })
-            }
+                let nodeElement = '';
+                nodeElement = typeStart;
+                for (let i = 0; i < typeMap.get(key).length; i++){
+                    nodeElement = nodeElement + memberStart + typeMap.get(key)[i] + '/' + memberEnd;
+                    sfdx.force.mdapi.listmetadata({
+                        metadatatype: key,
+                        folder: typeMap.get(key)[i], 
+                        _quiet: false
+                    }).then((data)=>{
+                        if(data.length > 0){
+                            data.forEach((f)=>{
+                                nodeElement = nodeElement + memberStart + f.fullName + memberEnd;
+                            })
+                            nodeElement = nodeElement + nameStart + key + nameEnd + typeEnd;
+                            manifestOut = manifestOut + nodeElement;
+                        }
+                    })
+                }
             }
         }
     }).then(()=>{
@@ -100,10 +93,15 @@ function getDescribeMetadata(){
             let nodeElement = '';
             nodeElement = typeStart + everything ;
             data.forEach((x)=>{
-                nodeElement = nodeElement + memberStart + x + memberEnd;
+                if(x == 'ExternalCredential'){
+                    console.log('found credential');
+                }
+                if(x != 'ExternalCredential'){
+                    nodeElement = nodeElement + memberStart + x + memberEnd;
+                }
             })
             manifestOut = manifestOut + nodeElement + nameStart + 'CustomObject' + nameEnd + typeEnd + manifestEnd;
-            fs.writeFile('sampleManifest.xml', manifestOut, (err)=>{
+            fs.writeFile('manifests/orgPrint.xml', manifestOut, (err)=>{
                 if(err!= null){
                     console.log(err);
                 }
@@ -115,96 +113,3 @@ function getDescribeMetadata(){
 } // end of function
 
 getDescribeMetadata();
-
-    // then(()=>{
-
-    //     manifestOut = manifestOut + manifestEnd;
-    //     fs.writeFile('sampleManifest.xml', manifestOut, (err)=>{
-    //         if(err!= null){
-    //             console.log(err);
-    //         }
-    //     })
-    //     console.log('ending');
-    // })
-
-
-
-
-// start to build the map
-
-// sfdx.force.mdapi.describemetadata({
-//     targetusername: 'lwcsuperbadge'
-// })
-// .then(
-//     (data)=>{
-//         data.metadataObjects.forEach(
-//             (x)=>{
-//                 typeMap.set(x.xmlName, []);             
-//             }
-//         )
-//         let keyNum = 0;
-//         for (const key of typeMap.keys()) {
-//             manifestOut = manifestOut + typeStart;
-//             if(typeMap.get(key).length == 0){
-//                 manifestOut = manifestOut +'\n        <members>*</members>';
-//             }else{
-//                 let tempArray = typeMap.get(key);
-//                 tempArray.forEach((x)=>{
-//                     if(x    != 'ManagedContentTypeBundle'){
-//                         manifestOut = manifestOut + '    <members>' + typeMap.get(key)[x] + '</members>';
-//                     }
-//                 })
-//             }   
-
-//             manifestOut = manifestOut + nameEnd1 + key + nameEnd2 + typeEnd;
-//             keyNum++;
-
-//             if(keyNum == typeMap.size){
-//                 manifestOut = manifestOut + manifestEnd;
-//                 fs.writeFile('sampleManifest.xml', manifestOut, (err)=>{
-//                     if(err!= null){
-//                         console.log(err);
-//                     }
-//                 })
-//             }
-//         }
-//     }
-// )
-
-
-        // console.log('calling the query');
-        // sfdx.force.data.soqlQuery({
-
-        //     query: 'SELECT Id, Name, DeveloperName, Type, AccessType, IsReadonly,  ParentId, NamespacePrefix FROM Folder WHERE (DeveloperName!= null) ORDER BY Type',
-        //     _quiet: false
-        // }).then(
-        //     (queryResult)=>{
-        //         queryResult.records.forEach(
-        //             (x)=>{
-        //                 console.log(' DeveloperName ==> ', x.DeveloperName, ' x.Type ==> ', x.Type);
-        //             }
-        //         )
-        //     }
-        // )
-        // .then(
-        //     console.log('This works')
-        // )
-        // (folderResult)=>{
-        //     if(x.Type == 'Report' || x.Type == 'Dashboard'){ 
-        //         sfdx.force.mdapi.listmetadata({
-        //             metadatatype: x.Type,
-        //             folder: x.DeveloperName, 
-        //             _quiet: false
-        // }
-        // .then(
-        //         console.log('one folder info ==> ', x )
-        //         folderResult.forEach((y)=>{
-        //             console.log('here is y ==> ' + y)
-        //             // if(typeMap.has(y.type)){
-        //             //     let temp = typeMap.get(y.type);
-        //             //     typeMap.set(y.type, [...temp, y.fullName ]);
-        //             // } else {
-        //             //     typeMap.set(y.type, [y.fullName]);
-        //             // }
-        //     })
-        // )
