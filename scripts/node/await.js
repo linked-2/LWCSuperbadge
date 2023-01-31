@@ -1,6 +1,8 @@
+import printOrgV2 from "./printOrgV2.js";
 function testAsync(){
     return new Promise((resolve,reject)=>{
-        //here our function should be implemented 
+        //here our function should be implemented
+        //printOrgV2(); 
         setTimeout(()=>{
             console.log("Hello from inside the testAsync function");
             resolve();
